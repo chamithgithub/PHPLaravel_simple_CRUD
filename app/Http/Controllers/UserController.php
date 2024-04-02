@@ -29,5 +29,22 @@ class UserController extends Controller
         $this->task->create($request->all());
         return redirect()->route('index');
     }
+    public function delete($id){
+        $task=$this->task->find($id);
+        $task->delete();
+        return redirect()->back();
+        
+    }
+
+    public function update($id){
+        $task=$this->task->find($id);
+        return view('components.edit',['task'=>$task]);
+    }
+
+    public function edit(Request $request,string $id){
+        $task=Exdata::find($id);
+        $task->update($request->all());
+        return redirect()->route('index')->with("success");
+    }
     
 }
